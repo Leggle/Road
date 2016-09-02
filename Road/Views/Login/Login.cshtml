@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    <link href=@Url.Content("/Content/login.css") type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <div id="login">
+        @using (Html.BeginForm())
+        {
+            <form >
+                <h1>Log In</h1>
+                <fieldset id="inputs">
+                    <input id="username" name="id" type="text" placeholder="Username" autofocus required>
+                    <input id="password" name="password" type="password" placeholder="Password" required>
+                </fieldset>
+                <fieldset id="actions">
+                    <input type="submit" id="submit" value="Login">
+                </fieldset>
+            </form>
+        }
+
+     </div>
+
+</body>
+</html>

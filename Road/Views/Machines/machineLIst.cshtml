@@ -1,0 +1,48 @@
+﻿@model Road.Models.ViewModel.MachineViewModel
+
+@{
+    ViewBag.Title = "machineLIst";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+
+}
+
+@using (Html.BeginForm("AddNew", "Machines", FormMethod.Post))
+{
+<div class="container">
+    <form>
+        <div class="well">
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    @Html.TextBoxFor(model => model.Mach_No, null, new { @class = "form-control", placeholder = "Machine Code",type="number",required="required" })
+                </div>
+                <div class="col-md-4 form-group">
+                    @Html.TextBoxFor(model => model.Mach_Desc, null, new { @class = "form-control", placeholder = "Machine Description", type = "string", required = "required" })
+                </div>
+                <div class="col-md-2 form-group">
+                    <input type="submit" class="btn btn-primary" value="Add New Machine"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 form-group">
+                    @Html.TextBoxFor(model => model.Lease_Rate, null, new { @class = "form-control", placeholder = "Lease Rate", type = "number",step="0.01", required = "required" })
+                </div>
+                <div class="col-md-4 form-group">
+                    @Html.DropDownListFor(model => model.Owner_Num, new SelectList(ViewBag.DropdownResult, "Owner_Num", "Owner_Name"),
+                         string.Empty, new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="alert-danger">@Html.ValidationSummary(true)</div>
+</div>
+}
+
+
+
+<div >
+    @{Html.RenderAction("webGrid");}
+</div>
+
+
+

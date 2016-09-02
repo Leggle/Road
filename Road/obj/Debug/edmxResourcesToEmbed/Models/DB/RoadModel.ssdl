@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RoadsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblAct">
+    <Key>
+      <PropertyRef Name="Activity_Code" />
+    </Key>
+    <Property Name="Activity_Code" Type="int" Nullable="false" />
+    <Property Name="Activity_Desc" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="tblEmp">
+    <Key>
+      <PropertyRef Name="Emp_no" />
+    </Key>
+    <Property Name="Emp_no" Type="int" Nullable="false" />
+    <Property Name="Emp_Name" Type="varchar" MaxLength="50" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblMach">
+    <Key>
+      <PropertyRef Name="Mach_No" />
+    </Key>
+    <Property Name="Mach_No" Type="int" Nullable="false" />
+    <Property Name="Mach_Desc" Type="varchar" MaxLength="200" />
+    <Property Name="Lease_Rate" Type="float" />
+    <Property Name="Owner_Num" Type="int" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="tblOwner">
+    <Key>
+      <PropertyRef Name="Owner_Num" />
+    </Key>
+    <Property Name="Owner_Num" Type="int" Nullable="false" />
+    <Property Name="Owner_Name" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="tblRoad">
+    <Key>
+      <PropertyRef Name="BIA_No" />
+    </Key>
+    <Property Name="BIA_No" Type="int" Nullable="false" />
+    <Property Name="Road_Name" Type="varchar" MaxLength="100" />
+    <Property Name="Type_Id" Type="int" />
+    <Property Name="Miles" Type="float" />
+  </EntityType>
+  <EntityType Name="tblTransaction">
+    <Key>
+      <PropertyRef Name="AutoNumber" />
+    </Key>
+    <Property Name="AutoNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Trans_Date" Type="datetime" />
+    <Property Name="Emp_No" Type="int" />
+    <Property Name="Mach_No" Type="int" />
+    <Property Name="BIA_No" Type="int" />
+    <Property Name="Activity_Code" Type="int" />
+    <Property Name="Hours" Type="float" />
+    <Property Name="Lease_Chg" Type="float" />
+  </EntityType>
+  <EntityType Name="tblType">
+    <Key>
+      <PropertyRef Name="Type_Id" />
+    </Key>
+    <Property Name="Type_Id" Type="int" Nullable="false" />
+    <Property Name="Type_Desc" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__tblMach__Owner_N__0CBAE877">
+    <End Role="tblOwner" Type="Self.tblOwner" Multiplicity="0..1" />
+    <End Role="tblMach" Type="Self.tblMach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblOwner">
+        <PropertyRef Name="Owner_Num" />
+      </Principal>
+      <Dependent Role="tblMach">
+        <PropertyRef Name="Owner_Num" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblRoad__Type_Id__15502E78">
+    <End Role="tblType" Type="Self.tblType" Multiplicity="0..1" />
+    <End Role="tblRoad" Type="Self.tblRoad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblType">
+        <PropertyRef Name="Type_Id" />
+      </Principal>
+      <Dependent Role="tblRoad">
+        <PropertyRef Name="Type_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTransa__Activ__1CF15040">
+    <End Role="tblAct" Type="Self.tblAct" Multiplicity="0..1" />
+    <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblAct">
+        <PropertyRef Name="Activity_Code" />
+      </Principal>
+      <Dependent Role="tblTransaction">
+        <PropertyRef Name="Activity_Code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTransa__BIA_N__1BFD2C07">
+    <End Role="tblRoad" Type="Self.tblRoad" Multiplicity="0..1" />
+    <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblRoad">
+        <PropertyRef Name="BIA_No" />
+      </Principal>
+      <Dependent Role="tblTransaction">
+        <PropertyRef Name="BIA_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTransa__Emp_N__1A14E395">
+    <End Role="tblEmp" Type="Self.tblEmp" Multiplicity="0..1" />
+    <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblEmp">
+        <PropertyRef Name="Emp_no" />
+      </Principal>
+      <Dependent Role="tblTransaction">
+        <PropertyRef Name="Emp_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTransa__Mach___1B0907CE">
+    <End Role="tblMach" Type="Self.tblMach" Multiplicity="0..1" />
+    <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMach">
+        <PropertyRef Name="Mach_No" />
+      </Principal>
+      <Dependent Role="tblTransaction">
+        <PropertyRef Name="Mach_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="AddActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ActCode" Type="int" Mode="In" />
+    <Parameter Name="ActDesc" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="AddEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="EmpNum" Type="int" Mode="In" />
+    <Parameter Name="EmpName" Type="varchar" Mode="In" />
+    <Parameter Name="Active" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="AddMachine" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="MachCode" Type="int" Mode="In" />
+    <Parameter Name="MachDesc" Type="varchar" Mode="In" />
+    <Parameter Name="LeaseRate" Type="decimal" Mode="In" />
+    <Parameter Name="Owner" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AddRoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="RoadCode" Type="int" Mode="In" />
+    <Parameter Name="RoadName" Type="varchar" Mode="In" />
+    <Parameter Name="RoadType" Type="int" Mode="In" />
+    <Parameter Name="Miles" Type="decimal" Mode="In" />
+  </Function>
+  <Function Name="AddRoadTrans" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Emp_No" Type="int" Mode="In" />
+    <Parameter Name="Mach_No" Type="int" Mode="In" />
+    <Parameter Name="Activity_Code" Type="int" Mode="In" />
+    <Parameter Name="BIA_No" Type="int" Mode="In" />
+    <Parameter Name="Hours" Type="float" Mode="In" />
+    <Parameter Name="Lease_Chg" Type="float" Mode="In" />
+    <Parameter Name="Trans_Date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="EditActivity" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="oActCode" Type="int" Mode="In" />
+    <Parameter Name="nActCode" Type="int" Mode="In" />
+    <Parameter Name="nActDesc" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="EditEmployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="oEmpNum" Type="int" Mode="In" />
+    <Parameter Name="nEmpNum" Type="int" Mode="In" />
+    <Parameter Name="nEmpName" Type="varchar" Mode="In" />
+    <Parameter Name="nActive" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="EditMachine" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="oMachNum" Type="int" Mode="In" />
+    <Parameter Name="nMachNum" Type="int" Mode="In" />
+    <Parameter Name="nMachDesc" Type="varchar" Mode="In" />
+    <Parameter Name="nLeaseRate" Type="float" Mode="In" />
+    <Parameter Name="nActive" Type="bit" Mode="In" />
+  </Function>
+  <Function Name="EditRoad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="oRoadCode" Type="int" Mode="In" />
+    <Parameter Name="nRoadCode" Type="int" Mode="In" />
+    <Parameter Name="nRoadName" Type="varchar" Mode="In" />
+    <Parameter Name="nRoadType" Type="int" Mode="In" />
+    <Parameter Name="nMiles" Type="float" Mode="In" />
+  </Function>
+  <Function Name="EditRoadTrans" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="autoNum" Type="int" Mode="In" />
+    <Parameter Name="empNo" Type="int" Mode="In" />
+    <Parameter Name="machNo" Type="int" Mode="In" />
+    <Parameter Name="actCode" Type="int" Mode="In" />
+    <Parameter Name="biaNo" Type="int" Mode="In" />
+    <Parameter Name="hours" Type="float" Mode="In" />
+    <Parameter Name="lease" Type="float" Mode="In" />
+    <Parameter Name="Trans_Date" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="GetAllActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllEmployees" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllMachines" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllOwners" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllRoads" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetAllRoadTrans" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="startDate" Type="datetime" Mode="In" />
+    <Parameter Name="endDate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="GetAllRoadTypes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="GetMachByCode" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Mach_code" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="RoadsModelStoreContainer">
+    <EntitySet Name="tblAct" EntityType="Self.tblAct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblEmp" EntityType="Self.tblEmp" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMach" EntityType="Self.tblMach" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblOwner" EntityType="Self.tblOwner" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblRoad" EntityType="Self.tblRoad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblTransaction" EntityType="Self.tblTransaction" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblType" EntityType="Self.tblType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__tblMach__Owner_N__0CBAE877" Association="Self.FK__tblMach__Owner_N__0CBAE877">
+      <End Role="tblOwner" EntitySet="tblOwner" />
+      <End Role="tblMach" EntitySet="tblMach" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblRoad__Type_Id__15502E78" Association="Self.FK__tblRoad__Type_Id__15502E78">
+      <End Role="tblType" EntitySet="tblType" />
+      <End Role="tblRoad" EntitySet="tblRoad" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTransa__Activ__1CF15040" Association="Self.FK__tblTransa__Activ__1CF15040">
+      <End Role="tblAct" EntitySet="tblAct" />
+      <End Role="tblTransaction" EntitySet="tblTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTransa__BIA_N__1BFD2C07" Association="Self.FK__tblTransa__BIA_N__1BFD2C07">
+      <End Role="tblRoad" EntitySet="tblRoad" />
+      <End Role="tblTransaction" EntitySet="tblTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTransa__Emp_N__1A14E395" Association="Self.FK__tblTransa__Emp_N__1A14E395">
+      <End Role="tblEmp" EntitySet="tblEmp" />
+      <End Role="tblTransaction" EntitySet="tblTransaction" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTransa__Mach___1B0907CE" Association="Self.FK__tblTransa__Mach___1B0907CE">
+      <End Role="tblMach" EntitySet="tblMach" />
+      <End Role="tblTransaction" EntitySet="tblTransaction" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

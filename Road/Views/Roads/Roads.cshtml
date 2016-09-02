@@ -1,0 +1,46 @@
+﻿@model Road.Models.ViewModel.RoadViewModel
+
+
+@{
+    ViewBag.Title = "Road";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+@using (Html.BeginForm("AddRow", "Roads", FormMethod.Post))
+{
+    <div class="container">
+        <form>
+            <div class="well">
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        @Html.TextBoxFor(model => model.BIA_No, null, new { @class = "form-control", placeholder = "Road Code", type = "number", required = "required" })
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @Html.TextBoxFor(model => model.Road_Name, null, new { @class = "form-control", placeholder = "Road Description", type = "string", required = "required" })
+                    </div>
+                    <div class="col-md-2 form-group">
+
+                        <input id="addNewRoad" value="Add New Road" type="submit" class="btn btn-primary" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 form-group">
+                        @Html.TextBoxFor(model => model.Miles, null, new { @class = "form-control", placeholder = "Road Miles", type = "number", required = "required" })
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @Html.DropDownListFor(model => model.Type_Id, new SelectList(ViewBag.roadNames, "Type_Id", "Type_Desc"), string.Empty, new { @class = "form-control", required = "required" })
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div class="alert-danger">@Html.ValidationSummary(true)</div>
+    </div>
+
+}
+
+
+<div>
+    @{ Html.RenderAction("webGrid");}
+</div>
+

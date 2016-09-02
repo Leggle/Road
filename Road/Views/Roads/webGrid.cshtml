@@ -1,0 +1,51 @@
+﻿@model Road.Models.ViewModel.RoadViewModel
+
+@{
+    WebGrid grid = new WebGrid(source: Model.Roadss);
+}
+<script src="~/scripts/jquery-3.1.0.js"></script>
+<script src="~/scripts/jquery-ui-1.12.0.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('.editDialog').click(function () {
+            $('<div/>').appendTo('body').dialog({
+                resizable: true,
+                title: "Edit",
+                dialogClass:"showdetails",
+                height: 350,
+                width: 350,
+                show: { effect: 'drop', direction: "up" },
+                modal: false,
+                draggable: true,
+            }).load(this.href, {});
+
+            return false;
+        });
+    });
+</script>
+
+
+
+<div class="container">
+    <div class="panel panel-info">
+        <div class="panel panel-heading">
+            Roads
+        </div>
+        <div class="panel panel-body">
+            @grid.GetHtml(
+                htmlAttributes: new { @class = "table table-striped table-condensed" },
+                columns: grid.Columns(
+                    grid.Column("BIA_No", "Road Code"),
+                    grid.Column("Road_NAme", "Road Description"),
+                    grid.Column("Miles", "Road Miles"),
+                    grid.Column("tblType.Type_Desc", "Road Type"),
+                    grid.Column("", format: @<text>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BIA_No }, new { @class = "editDialog" })</text>)
+                    ))
+        </div>
+    </div>
+</div>
+
+<div id="dialog-edit" style="display:none">
+</div>

@@ -1,0 +1,26 @@
+﻿@using Road.Models;
+
+@{
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HomeLogin</title>
+</head>
+<body>
+        <h2>Index</h2>
+        @{ 
+            var user = Session["user"] as UserLogin;
+        }
+        
+        @if (user != null)
+        {
+            <h3>Welcome @user.UserID</h3>
+        }
+
+</body>
+</html>

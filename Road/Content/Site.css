@@ -1,0 +1,24 @@
+﻿.showdetails .ui-dialog-titlebar {
+          color: white;
+          font-weight: bold;
+          background-color:#A57F56;
+          height:26px;
+    }
+
+.showdetails .ui-corner-all{
+    border-radius:0;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+    position: absolute;
+    right: 0;
+    background-color:#A57F56;
+}
+
+.ui-dialog .ui-dialog-title {
+    float: left;
+    margin: .1em 16px .1em 0;
+    padding-left:1em;
+    text-align: left;
+    width: 100%;
+}

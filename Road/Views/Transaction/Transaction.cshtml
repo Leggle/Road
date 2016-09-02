@@ -1,0 +1,78 @@
+﻿@model Road.Models.ViewModel.TransactionViewModel
+@using Kendo.Mvc.UI
+
+@{
+    ViewBag.Title = "Transaction";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="container">
+    <form>
+        <div class="well">
+            <div class="row">
+                <div class="col-md-2 form-group">
+                    @Html.TextBoxFor(model => model.Trans_Date, null, new { @class = "form-control", type = "date", required = "required", placeholder = "MM/DD/YYYY", id = "time" })
+                </div>
+                <div class="col-md-3 form-group">
+                    @Html.DropDownListFor(model => model.Emps, new SelectList(Model.Emps, "Emp_No", "Emp_Name"), "--Select Employee--", new { @class = "form-control", id = "Emp", required = "required" })
+                </div>
+                <div class="col-md-3 form-group">
+                    @Html.DropDownListFor(model => model.Roads, new SelectList(Model.Roads, "BIA_No", "Road_Name"), "--Select Road--", new { @class = "form-control", id = "Biano", required = "required" })
+                </div>
+                <div class="col-md-4 form-group">
+                    @Html.DropDownListFor(model => model.Acts, new SelectList(Model.Acts, "Activity_Code", "Activity_Desc"), "--Select Activity--", new { @class = "form-control", id = "activitycode", required = "required" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 form-group">
+                    @Html.DropDownListFor(model => model.Maches, new SelectList(Model.Maches, "Mach_No", "Mach_Desc"), "--Select Machine--", new { @class = "form-control", id = "machno", required = "required" })
+                </div>
+                <div class="col-md-2 form-group">
+                    @Html.TextBoxFor(model => model.Hours, null, new { @class = "form-control", placeholder = "Hour", id = "hour", required = "required", type="number", step = "0.01" })
+                </div>
+                <div class="col-md-2 form-group">
+                    @Html.TextBoxFor(model => model.Lease_Chg, null, new { @class = "form-control", placeholder = "Lease Charge", id = "lease", required = "required", type="number", step = "0.01" })
+                </div>
+                <div class="col-md-2 form-group">
+                    <input type="submit" class="btn btn-primary" value="Add New Transaction" id="addRecordlink"/>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    $(function(){
+        $("#addRecordlink").button().on("click", function () {
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("addTransaction", "Transaction")',
+                dataType: 'json',
+                data:{
+                    Trans_Date: $("#time").val(),
+                    Emp_No: $("#Emp").val(),
+                    BIA_No: $("#Biano").val(),
+                    Activity_Code: $("#activitycode").val(),
+                    Mach_No: $("#machno").val(),
+                    Hours: $("#hour").val(),
+                    Lease_Chg: $("#lease").val()
+                },
+                success: function (data) {
+                                    alert("Add Successfully");
+                                }
+
+                            })
+        })
+
+        })
+
+
+</script>
+
+<div class="container">
+    @{ Html.RenderAction("showGrid");}
+</div>
+

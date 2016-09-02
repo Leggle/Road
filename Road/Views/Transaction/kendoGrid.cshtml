@@ -1,0 +1,39 @@
+﻿@using Kendo.Mvc.UI
+@model Road.Models.ViewModel.TransactionViewModel
+
+<script src="~/Content/kendo/kendo.all.min.js"></script>
+<script src="~/Content/kendo/kendo.aspnetmvc.min.js"></script>
+<link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.common.min.css" rel="stylesheet" />
+<link href="http://cdn.kendostatic.com/2013.2.918/styles/kendo.bootstrap.min.css" rel="stylesheet" />
+
+
+    @(Html.Kendo().Grid<Road.Models.ViewModel.TransactionViewModel>()
+    .Name("Grid")
+    .Columns(columns =>
+    {
+        columns.Bound(p => p.Emp_Name).Title("Employee Name").Width(150);
+        columns.Bound(p => p.Mach_Desc).Title("Machine Description").Width(150);
+        columns.Bound(p => p.Road_Name).Title("Road Name").Width(150);
+        columns.Bound(p => p.Activity_Desc).Title("Activity").Width(150);
+        columns.Bound(p => p.Hours).Title("Hours").Width(150);
+        columns.Bound(p => p.Lease_Chg).Title("Lease Rate").Format("{0:c}").Width(150);
+        columns.Command(command => { command.Edit(); }).Width(150);
+    })
+    .Editable(editable => editable.Mode(GridEditMode.InLine))
+    .Pageable()
+    .Sortable()
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:450px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(10)
+        .Model(model => { model.Id(p => p.AutoNumber);
+            model.Field(p => p.Emp_Name).Editable(false);
+            model.Field(p => p.Mach_Desc).Editable(false);
+            model.Field(p => p.Road_Name).Editable(false);
+            model.Field(p => p.Activity_Desc).Editable(false);
+        })
+        .Read(read => read.Action("kendoGrid", "Transaction"))
+        .Update(update => update.Action("update", "Transaction"))
+     )
+    )

@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RoadsModelStoreContainer" CdmEntityContainer="RoadsEntities">
+    <EntitySetMapping Name="tblActs">
+      <EntityTypeMapping TypeName="RoadsModel.tblAct">
+        <MappingFragment StoreEntitySet="tblAct">
+          <ScalarProperty Name="Activity_Code" ColumnName="Activity_Code" />
+          <ScalarProperty Name="Activity_Desc" ColumnName="Activity_Desc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblEmps">
+      <EntityTypeMapping TypeName="RoadsModel.tblEmp">
+        <MappingFragment StoreEntitySet="tblEmp">
+          <ScalarProperty Name="Emp_no" ColumnName="Emp_no" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblMaches">
+      <EntityTypeMapping TypeName="RoadsModel.tblMach">
+        <MappingFragment StoreEntitySet="tblMach">
+          <ScalarProperty Name="Mach_No" ColumnName="Mach_No" />
+          <ScalarProperty Name="Mach_Desc" ColumnName="Mach_Desc" />
+          <ScalarProperty Name="Lease_Rate" ColumnName="Lease_Rate" />
+          <ScalarProperty Name="Owner_Num" ColumnName="Owner_Num" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblOwners">
+      <EntityTypeMapping TypeName="RoadsModel.tblOwner">
+        <MappingFragment StoreEntitySet="tblOwner">
+          <ScalarProperty Name="Owner_Num" ColumnName="Owner_Num" />
+          <ScalarProperty Name="Owner_Name" ColumnName="Owner_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblRoads">
+      <EntityTypeMapping TypeName="RoadsModel.tblRoad">
+        <MappingFragment StoreEntitySet="tblRoad">
+          <ScalarProperty Name="BIA_No" ColumnName="BIA_No" />
+          <ScalarProperty Name="Road_Name" ColumnName="Road_Name" />
+          <ScalarProperty Name="Type_Id" ColumnName="Type_Id" />
+          <ScalarProperty Name="Miles" ColumnName="Miles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTransactions">
+      <EntityTypeMapping TypeName="RoadsModel.tblTransaction">
+        <MappingFragment StoreEntitySet="tblTransaction">
+          <ScalarProperty Name="AutoNumber" ColumnName="AutoNumber" />
+          <ScalarProperty Name="Trans_Date" ColumnName="Trans_Date" />
+          <ScalarProperty Name="Emp_No" ColumnName="Emp_No" />
+          <ScalarProperty Name="Mach_No" ColumnName="Mach_No" />
+          <ScalarProperty Name="BIA_No" ColumnName="BIA_No" />
+          <ScalarProperty Name="Activity_Code" ColumnName="Activity_Code" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="Lease_Chg" ColumnName="Lease_Chg" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblTypes">
+      <EntityTypeMapping TypeName="RoadsModel.tblType">
+        <MappingFragment StoreEntitySet="tblType">
+          <ScalarProperty Name="Type_Id" ColumnName="Type_Id" />
+          <ScalarProperty Name="Type_Desc" ColumnName="Type_Desc" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tblUsers">
+      <EntityTypeMapping TypeName="RoadsModel.tblUser">
+        <MappingFragment StoreEntitySet="tblUser">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AddActivity" FunctionName="RoadsModel.Store.AddActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.AddActivity_Result">
+          <ScalarProperty Name="Activity_Code" ColumnName="Activity_Code" />
+          <ScalarProperty Name="Activity_Description" ColumnName="Activity_Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AddEmployee" FunctionName="RoadsModel.Store.AddEmployee">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.AddEmployee_Result">
+          <ScalarProperty Name="Emp_No" ColumnName="Emp_No" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AddMachine" FunctionName="RoadsModel.Store.AddMachine">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.AddMachine_Result">
+          <ScalarProperty Name="Mach_No" ColumnName="Mach_No" />
+          <ScalarProperty Name="Mach_Desc" ColumnName="Mach_Desc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AddRoad" FunctionName="RoadsModel.Store.AddRoad">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.AddRoad_Result">
+          <ScalarProperty Name="BIA_No" ColumnName="BIA_No" />
+          <ScalarProperty Name="Road_Name" ColumnName="Road_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="AddRoadTrans" FunctionName="RoadsModel.Store.AddRoadTrans" />
+    <FunctionImportMapping FunctionImportName="EditActivity" FunctionName="RoadsModel.Store.EditActivity">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.EditActivity_Result">
+          <ScalarProperty Name="Activity_Code" ColumnName="Activity_Code" />
+          <ScalarProperty Name="Activity_Description" ColumnName="Activity_Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EditEmployee" FunctionName="RoadsModel.Store.EditEmployee">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.EditEmployee_Result">
+          <ScalarProperty Name="Emp_No" ColumnName="Emp_No" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EditMachine" FunctionName="RoadsModel.Store.EditMachine">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.EditMachine_Result">
+          <ScalarProperty Name="Mach_No" ColumnName="Mach_No" />
+          <ScalarProperty Name="Mach_Desc" ColumnName="Mach_Desc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EditRoad" FunctionName="RoadsModel.Store.EditRoad">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.EditRoad_Result">
+          <ScalarProperty Name="BIA_No" ColumnName="BIA_No" />
+          <ScalarProperty Name="Road_Name" ColumnName="Road_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="EditRoadTrans" FunctionName="RoadsModel.Store.EditRoadTrans" />
+    <FunctionImportMapping FunctionImportName="GetAllActivities" FunctionName="RoadsModel.Store.GetAllActivities">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.GetAllActivities_Result">
+          <ScalarProperty Name="Activity_Code" ColumnName="Activity_Code" />
+          <ScalarProperty Name="Activity_Desc" ColumnName="Activity_Desc" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllEmployees" FunctionName="RoadsModel.Store.GetAllEmployees">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.GetAllEmployees_Result">
+          <ScalarProperty Name="Emp_no" ColumnName="Emp_no" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllMachines" FunctionName="RoadsModel.Store.GetAllMachines">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.GetAllMachines_Result">
+          <ScalarProperty Name="Mach_No" ColumnName="Mach_No" />
+          <ScalarProperty Name="Mach_Desc" ColumnName="Mach_Desc" />
+          <ScalarProperty Name="Lease_Rate" ColumnName="Lease_Rate" />
+          <ScalarProperty Name="Owner_Num" ColumnName="Owner_Num" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Owner_Num1" ColumnName="Owner_Num1" />
+          <ScalarProperty Name="Owner_Name" ColumnName="Owner_Name" />
+          <ScalarProperty Name="Machine" ColumnName="Machine" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerDesc" ColumnName="OwnerDesc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllOwners" FunctionName="RoadsModel.Store.GetAllOwners">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.GetAllOwners_Result">
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerDesc" ColumnName="OwnerDesc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllRoads" FunctionName="RoadsModel.Store.GetAllRoads">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.GetAllRoads_Result">
+          <ScalarProperty Name="BIA_No" ColumnName="BIA_No" />
+          <ScalarProperty Name="Road_Name" ColumnName="Road_Name" />
+          <ScalarProperty Name="Type_Id" ColumnName="Type_Id" />
+          <ScalarProperty Name="Miles" ColumnName="Miles" />
+          <ScalarProperty Name="Type_Id1" ColumnName="Type_Id1" />
+          <ScalarProperty Name="Type_Desc" ColumnName="Type_Desc" />
+          <ScalarProperty Name="Road" ColumnName="Road" />
+          <ScalarProperty Name="Road_TypeDesc" ColumnName="Road_TypeDesc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllRoadTrans" FunctionName="RoadsModel.Store.GetAllRoadTrans">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.GetAllRoadTrans_Result">
+          <ScalarProperty Name="AutoNumber" ColumnName="AutoNumber" />
+          <ScalarProperty Name="Trans_Date" ColumnName="Trans_Date" />
+          <ScalarProperty Name="Emp_no" ColumnName="Emp_no" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+          <ScalarProperty Name="Machine" ColumnName="Machine" />
+          <ScalarProperty Name="Mach_Desc" ColumnName="Mach_Desc" />
+          <ScalarProperty Name="Road" ColumnName="Road" />
+          <ScalarProperty Name="Road_Name" ColumnName="Road_Name" />
+          <ScalarProperty Name="Activity" ColumnName="Activity" />
+          <ScalarProperty Name="Activity_Desc" ColumnName="Activity_Desc" />
+          <ScalarProperty Name="Hours" ColumnName="Hours" />
+          <ScalarProperty Name="Lease_Chg" ColumnName="Lease_Chg" />
+          <ScalarProperty Name="OwnerDesc" ColumnName="OwnerDesc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetAllRoadTypes" FunctionName="RoadsModel.Store.GetAllRoadTypes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.GetAllRoadTypes_Result">
+          <ScalarProperty Name="Road_Type" ColumnName="Road_Type" />
+          <ScalarProperty Name="Road_TypeDesc" ColumnName="Road_TypeDesc" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="GetMachByCode" FunctionName="RoadsModel.Store.GetMachByCode">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RoadsModel.GetMachByCode_Result">
+          <ScalarProperty Name="Mach_No" ColumnName="Mach_No" />
+          <ScalarProperty Name="Mach_Desc" ColumnName="Mach_Desc" />
+          <ScalarProperty Name="Lease_Rate" ColumnName="Lease_Rate" />
+          <ScalarProperty Name="Owner_Num" ColumnName="Owner_Num" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

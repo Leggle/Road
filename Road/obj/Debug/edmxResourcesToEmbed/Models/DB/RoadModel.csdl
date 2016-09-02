@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RoadsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="tblAct">
+    <Key>
+      <PropertyRef Name="Activity_Code" />
+    </Key>
+    <Property Name="Activity_Code" Type="Int32" Nullable="false" />
+    <Property Name="Activity_Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblTransactions" Relationship="Self.FK__tblTransa__Activ__1CF15040" FromRole="tblAct" ToRole="tblTransaction" />
+  </EntityType>
+  <EntityType Name="tblEmp">
+    <Key>
+      <PropertyRef Name="Emp_no" />
+    </Key>
+    <Property Name="Emp_no" Type="Int32" Nullable="false" />
+    <Property Name="Emp_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="tblTransactions" Relationship="Self.FK__tblTransa__Emp_N__1A14E395" FromRole="tblEmp" ToRole="tblTransaction" />
+  </EntityType>
+  <EntityType Name="tblMach">
+    <Key>
+      <PropertyRef Name="Mach_No" />
+    </Key>
+    <Property Name="Mach_No" Type="Int32" Nullable="false" />
+    <Property Name="Mach_Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Lease_Rate" Type="Double" />
+    <Property Name="Owner_Num" Type="Int32" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="tblOwner" Relationship="Self.FK__tblMach__Owner_N__0CBAE877" FromRole="tblMach" ToRole="tblOwner" />
+    <NavigationProperty Name="tblTransactions" Relationship="Self.FK__tblTransa__Mach___1B0907CE" FromRole="tblMach" ToRole="tblTransaction" />
+  </EntityType>
+  <EntityType Name="tblOwner">
+    <Key>
+      <PropertyRef Name="Owner_Num" />
+    </Key>
+    <Property Name="Owner_Num" Type="Int32" Nullable="false" />
+    <Property Name="Owner_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblMaches" Relationship="Self.FK__tblMach__Owner_N__0CBAE877" FromRole="tblOwner" ToRole="tblMach" />
+  </EntityType>
+  <EntityType Name="tblRoad">
+    <Key>
+      <PropertyRef Name="BIA_No" />
+    </Key>
+    <Property Name="BIA_No" Type="Int32" Nullable="false" />
+    <Property Name="Road_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Type_Id" Type="Int32" />
+    <Property Name="Miles" Type="Double" />
+    <NavigationProperty Name="tblType" Relationship="Self.FK__tblRoad__Type_Id__15502E78" FromRole="tblRoad" ToRole="tblType" />
+    <NavigationProperty Name="tblTransactions" Relationship="Self.FK__tblTransa__BIA_N__1BFD2C07" FromRole="tblRoad" ToRole="tblTransaction" />
+  </EntityType>
+  <EntityType Name="tblTransaction">
+    <Key>
+      <PropertyRef Name="AutoNumber" />
+    </Key>
+    <Property Name="AutoNumber" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Trans_Date" Type="DateTime" Precision="3" />
+    <Property Name="Emp_No" Type="Int32" />
+    <Property Name="Mach_No" Type="Int32" />
+    <Property Name="BIA_No" Type="Int32" />
+    <Property Name="Activity_Code" Type="Int32" />
+    <Property Name="Hours" Type="Double" />
+    <Property Name="Lease_Chg" Type="Double" />
+    <NavigationProperty Name="tblAct" Relationship="Self.FK__tblTransa__Activ__1CF15040" FromRole="tblTransaction" ToRole="tblAct" />
+    <NavigationProperty Name="tblEmp" Relationship="Self.FK__tblTransa__Emp_N__1A14E395" FromRole="tblTransaction" ToRole="tblEmp" />
+    <NavigationProperty Name="tblMach" Relationship="Self.FK__tblTransa__Mach___1B0907CE" FromRole="tblTransaction" ToRole="tblMach" />
+    <NavigationProperty Name="tblRoad" Relationship="Self.FK__tblTransa__BIA_N__1BFD2C07" FromRole="tblTransaction" ToRole="tblRoad" />
+  </EntityType>
+  <EntityType Name="tblType">
+    <Key>
+      <PropertyRef Name="Type_Id" />
+    </Key>
+    <Property Name="Type_Id" Type="Int32" Nullable="false" />
+    <Property Name="Type_Desc" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tblRoads" Relationship="Self.FK__tblRoad__Type_Id__15502E78" FromRole="tblType" ToRole="tblRoad" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__tblTransa__Activ__1CF15040">
+    <End Role="tblAct" Type="Self.tblAct" Multiplicity="0..1" />
+    <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblAct">
+        <PropertyRef Name="Activity_Code" />
+      </Principal>
+      <Dependent Role="tblTransaction">
+        <PropertyRef Name="Activity_Code" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTransa__Emp_N__1A14E395">
+    <End Role="tblEmp" Type="Self.tblEmp" Multiplicity="0..1" />
+    <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblEmp">
+        <PropertyRef Name="Emp_no" />
+      </Principal>
+      <Dependent Role="tblTransaction">
+        <PropertyRef Name="Emp_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblMach__Owner_N__0CBAE877">
+    <End Role="tblOwner" Type="Self.tblOwner" Multiplicity="0..1" />
+    <End Role="tblMach" Type="Self.tblMach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblOwner">
+        <PropertyRef Name="Owner_Num" />
+      </Principal>
+      <Dependent Role="tblMach">
+        <PropertyRef Name="Owner_Num" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTransa__Mach___1B0907CE">
+    <End Role="tblMach" Type="Self.tblMach" Multiplicity="0..1" />
+    <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblMach">
+        <PropertyRef Name="Mach_No" />
+      </Principal>
+      <Dependent Role="tblTransaction">
+        <PropertyRef Name="Mach_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblRoad__Type_Id__15502E78">
+    <End Role="tblType" Type="Self.tblType" Multiplicity="0..1" />
+    <End Role="tblRoad" Type="Self.tblRoad" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblType">
+        <PropertyRef Name="Type_Id" />
+      </Principal>
+      <Dependent Role="tblRoad">
+        <PropertyRef Name="Type_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tblTransa__BIA_N__1BFD2C07">
+    <End Role="tblRoad" Type="Self.tblRoad" Multiplicity="0..1" />
+    <End Role="tblTransaction" Type="Self.tblTransaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblRoad">
+        <PropertyRef Name="BIA_No" />
+      </Principal>
+      <Dependent Role="tblTransaction">
+        <PropertyRef Name="BIA_No" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RoadsEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="tblActs" EntityType="Self.tblAct" />
+    <EntitySet Name="tblEmps" EntityType="Self.tblEmp" />
+    <EntitySet Name="tblMaches" EntityType="Self.tblMach" />
+    <EntitySet Name="tblOwners" EntityType="Self.tblOwner" />
+    <EntitySet Name="tblRoads" EntityType="Self.tblRoad" />
+    <EntitySet Name="tblTransactions" EntityType="Self.tblTransaction" />
+    <EntitySet Name="tblTypes" EntityType="Self.tblType" />
+    <EntitySet Name="tblUsers" EntityType="Self.tblUser" />
+    <AssociationSet Name="FK__tblTransa__Activ__1CF15040" Association="Self.FK__tblTransa__Activ__1CF15040">
+      <End Role="tblAct" EntitySet="tblActs" />
+      <End Role="tblTransaction" EntitySet="tblTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTransa__Emp_N__1A14E395" Association="Self.FK__tblTransa__Emp_N__1A14E395">
+      <End Role="tblEmp" EntitySet="tblEmps" />
+      <End Role="tblTransaction" EntitySet="tblTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblMach__Owner_N__0CBAE877" Association="Self.FK__tblMach__Owner_N__0CBAE877">
+      <End Role="tblOwner" EntitySet="tblOwners" />
+      <End Role="tblMach" EntitySet="tblMaches" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTransa__Mach___1B0907CE" Association="Self.FK__tblTransa__Mach___1B0907CE">
+      <End Role="tblMach" EntitySet="tblMaches" />
+      <End Role="tblTransaction" EntitySet="tblTransactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblRoad__Type_Id__15502E78" Association="Self.FK__tblRoad__Type_Id__15502E78">
+      <End Role="tblType" EntitySet="tblTypes" />
+      <End Role="tblRoad" EntitySet="tblRoads" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tblTransa__BIA_N__1BFD2C07" Association="Self.FK__tblTransa__BIA_N__1BFD2C07">
+      <End Role="tblRoad" EntitySet="tblRoads" />
+      <End Role="tblTransaction" EntitySet="tblTransactions" />
+    </AssociationSet>
+    <FunctionImport Name="AddActivity" ReturnType="Collection(RoadsModel.AddActivity_Result)">
+      <Parameter Name="ActCode" Mode="In" Type="Int32" />
+      <Parameter Name="ActDesc" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="AddEmployee" ReturnType="Collection(RoadsModel.AddEmployee_Result)">
+      <Parameter Name="EmpNum" Mode="In" Type="Int32" />
+      <Parameter Name="EmpName" Mode="In" Type="String" />
+      <Parameter Name="Active" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="AddMachine" ReturnType="Collection(RoadsModel.AddMachine_Result)">
+      <Parameter Name="MachCode" Mode="In" Type="Int32" />
+      <Parameter Name="MachDesc" Mode="In" Type="String" />
+      <Parameter Name="LeaseRate" Mode="In" Type="Decimal" />
+      <Parameter Name="Owner" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AddRoad" ReturnType="Collection(RoadsModel.AddRoad_Result)">
+      <Parameter Name="RoadCode" Mode="In" Type="Int32" />
+      <Parameter Name="RoadName" Mode="In" Type="String" />
+      <Parameter Name="RoadType" Mode="In" Type="Int32" />
+      <Parameter Name="Miles" Mode="In" Type="Decimal" />
+    </FunctionImport>
+    <FunctionImport Name="AddRoadTrans">
+      <Parameter Name="Emp_No" Mode="In" Type="Int32" />
+      <Parameter Name="Mach_No" Mode="In" Type="Int32" />
+      <Parameter Name="Activity_Code" Mode="In" Type="Int32" />
+      <Parameter Name="BIA_No" Mode="In" Type="Int32" />
+      <Parameter Name="Hours" Mode="In" Type="Double" />
+      <Parameter Name="Lease_Chg" Mode="In" Type="Double" />
+      <Parameter Name="Trans_Date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="EditActivity" ReturnType="Collection(RoadsModel.EditActivity_Result)">
+      <Parameter Name="oActCode" Mode="In" Type="Int32" />
+      <Parameter Name="nActCode" Mode="In" Type="Int32" />
+      <Parameter Name="nActDesc" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="EditEmployee" ReturnType="Collection(RoadsModel.EditEmployee_Result)">
+      <Parameter Name="oEmpNum" Mode="In" Type="Int32" />
+      <Parameter Name="nEmpNum" Mode="In" Type="Int32" />
+      <Parameter Name="nEmpName" Mode="In" Type="String" />
+      <Parameter Name="nActive" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="EditMachine" ReturnType="Collection(RoadsModel.EditMachine_Result)">
+      <Parameter Name="oMachNum" Mode="In" Type="Int32" />
+      <Parameter Name="nMachNum" Mode="In" Type="Int32" />
+      <Parameter Name="nMachDesc" Mode="In" Type="String" />
+      <Parameter Name="nLeaseRate" Mode="In" Type="Double" />
+      <Parameter Name="nActive" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <FunctionImport Name="EditRoad" ReturnType="Collection(RoadsModel.EditRoad_Result)">
+      <Parameter Name="oRoadCode" Mode="In" Type="Int32" />
+      <Parameter Name="nRoadCode" Mode="In" Type="Int32" />
+      <Parameter Name="nRoadName" Mode="In" Type="String" />
+      <Parameter Name="nRoadType" Mode="In" Type="Int32" />
+      <Parameter Name="nMiles" Mode="In" Type="Double" />
+    </FunctionImport>
+    <FunctionImport Name="EditRoadTrans">
+      <Parameter Name="autoNum" Mode="In" Type="Int32" />
+      <Parameter Name="empNo" Mode="In" Type="Int32" />
+      <Parameter Name="machNo" Mode="In" Type="Int32" />
+      <Parameter Name="actCode" Mode="In" Type="Int32" />
+      <Parameter Name="biaNo" Mode="In" Type="Int32" />
+      <Parameter Name="hours" Mode="In" Type="Double" />
+      <Parameter Name="lease" Mode="In" Type="Double" />
+      <Parameter Name="Trans_Date" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllActivities" ReturnType="Collection(RoadsModel.GetAllActivities_Result)" />
+    <FunctionImport Name="GetAllEmployees" ReturnType="Collection(RoadsModel.GetAllEmployees_Result)" />
+    <FunctionImport Name="GetAllMachines" ReturnType="Collection(RoadsModel.GetAllMachines_Result)" />
+    <FunctionImport Name="GetAllOwners" ReturnType="Collection(RoadsModel.GetAllOwners_Result)" />
+    <FunctionImport Name="GetAllRoads" ReturnType="Collection(RoadsModel.GetAllRoads_Result)" />
+    <FunctionImport Name="GetAllRoadTrans" ReturnType="Collection(RoadsModel.GetAllRoadTrans_Result)">
+      <Parameter Name="startDate" Mode="In" Type="DateTime" />
+      <Parameter Name="endDate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="GetAllRoadTypes" ReturnType="Collection(RoadsModel.GetAllRoadTypes_Result)" />
+    <FunctionImport Name="GetMachByCode" ReturnType="Collection(RoadsModel.GetMachByCode_Result)">
+      <Parameter Name="Mach_code" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="AddActivity_Result">
+    <Property Type="Int32" Name="Activity_Code" Nullable="false" />
+    <Property Type="String" Name="Activity_Description" Nullable="true" MaxLength="42" />
+  </ComplexType>
+  <ComplexType Name="AddEmployee_Result">
+    <Property Type="Int32" Name="Emp_No" Nullable="false" />
+    <Property Type="String" Name="Emp_Name" Nullable="true" MaxLength="44" />
+  </ComplexType>
+  <ComplexType Name="AddMachine_Result">
+    <Property Type="Int32" Name="Mach_No" Nullable="false" />
+    <Property Type="String" Name="Mach_Desc" Nullable="true" MaxLength="43" />
+  </ComplexType>
+  <ComplexType Name="AddRoad_Result">
+    <Property Type="Int32" Name="BIA_No" Nullable="false" />
+    <Property Type="String" Name="Road_Name" Nullable="true" MaxLength="42" />
+  </ComplexType>
+  <ComplexType Name="EditActivity_Result">
+    <Property Type="Int32" Name="Activity_Code" Nullable="false" />
+    <Property Type="String" Name="Activity_Description" Nullable="false" MaxLength="32" />
+  </ComplexType>
+  <ComplexType Name="EditEmployee_Result">
+    <Property Type="Int32" Name="Emp_No" Nullable="false" />
+    <Property Type="String" Name="Emp_Name" Nullable="false" MaxLength="34" />
+  </ComplexType>
+  <ComplexType Name="EditMachine_Result">
+    <Property Type="Int32" Name="Mach_No" Nullable="false" />
+    <Property Type="String" Name="Mach_Desc" Nullable="false" MaxLength="33" />
+  </ComplexType>
+  <ComplexType Name="EditRoad_Result">
+    <Property Type="Int32" Name="BIA_No" Nullable="false" />
+    <Property Type="String" Name="Road_Name" Nullable="false" MaxLength="33" />
+  </ComplexType>
+  <ComplexType Name="GetAllActivities_Result">
+    <Property Type="Int32" Name="Activity_Code" Nullable="false" />
+    <Property Type="String" Name="Activity_Desc" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Activity" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="GetAllEmployees_Result">
+    <Property Type="Int32" Name="Emp_no" Nullable="false" />
+    <Property Type="String" Name="Emp_Name" Nullable="true" MaxLength="50" />
+    <Property Type="Boolean" Name="Active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="GetAllMachines_Result">
+    <Property Type="Int32" Name="Mach_No" Nullable="false" />
+    <Property Type="String" Name="Mach_Desc" Nullable="true" MaxLength="200" />
+    <Property Type="Double" Name="Lease_Rate" Nullable="true" />
+    <Property Type="Int32" Name="Owner_Num" Nullable="true" />
+    <Property Type="Boolean" Name="Active" Nullable="true" />
+    <Property Type="Int32" Name="Owner_Num1" Nullable="false" />
+    <Property Type="String" Name="Owner_Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Machine" Nullable="true" MaxLength="200" />
+    <Property Type="Int32" Name="Owner" Nullable="false" />
+    <Property Type="String" Name="OwnerDesc" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="GetAllOwners_Result">
+    <Property Type="Int32" Name="Owner" Nullable="false" />
+    <Property Type="String" Name="OwnerDesc" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="GetAllRoads_Result">
+    <Property Type="Int32" Name="BIA_No" Nullable="false" />
+    <Property Type="String" Name="Road_Name" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="Type_Id" Nullable="true" />
+    <Property Type="Double" Name="Miles" Nullable="true" />
+    <Property Type="Int32" Name="Type_Id1" Nullable="false" />
+    <Property Type="String" Name="Type_Desc" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Road" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Road_TypeDesc" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="GetAllRoadTrans_Result">
+    <Property Type="Int32" Name="AutoNumber" Nullable="false" />
+    <Property Type="DateTime" Name="Trans_Date" Nullable="true" Precision="23" />
+    <Property Type="Int32" Name="Emp_no" Nullable="false" />
+    <Property Type="String" Name="Emp_Name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Machine" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Mach_Desc" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Road" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Road_Name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Activity" Nullable="true" MaxLength="200" />
+    <Property Type="String" Name="Activity_Desc" Nullable="true" MaxLength="200" />
+    <Property Type="Double" Name="Hours" Nullable="true" />
+    <Property Type="Double" Name="Lease_Chg" Nullable="true" />
+    <Property Type="String" Name="OwnerDesc" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="GetAllRoadTypes_Result">
+    <Property Type="Int32" Name="Road_Type" Nullable="false" />
+    <Property Type="String" Name="Road_TypeDesc" Nullable="true" MaxLength="200" />
+  </ComplexType>
+  <ComplexType Name="GetMachByCode_Result">
+    <Property Type="Int32" Name="Mach_No" Nullable="false" />
+    <Property Type="String" Name="Mach_Desc" Nullable="true" MaxLength="200" />
+    <Property Type="Double" Name="Lease_Rate" Nullable="true" />
+    <Property Type="Int32" Name="Owner_Num" Nullable="true" />
+    <Property Type="Boolean" Name="Active" Nullable="true" />
+    <Property Type="Int32" Name="Owner" Nullable="true" />
+  </ComplexType>
+</Schema>
